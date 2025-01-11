@@ -1,7 +1,7 @@
 {
-  "name": "awwbot",
+  "name": "phroggers",
   "version": "1.0.0",
-  "description": "A simple discord bot that uses intents to post pictures from r/aww",
+  "description": "A simple discord bot.",
   "type": "module",
   "private": true,
   "main": "src/server.js",
@@ -15,10 +15,11 @@
     "publish": "wrangler deploy"
   },
   "keywords": [],
-  "author": "Justin Beckwith <justin.beckwith@gmail.com>",
+  "author": "Jenny Mai <jmcmai@cs.stanford.edu>",
   "license": "MIT",
   "dependencies": {
     "discord-interactions": "^4.0.0",
+    "discord.js": "^14.17.3",
     "itty-router": "^5.0.9"
   },
   "devDependencies": {
