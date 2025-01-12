@@ -12,6 +12,8 @@ import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
 import { getCuteUrl } from './reddit.js';
 import { InteractionResponseFlags } from 'discord-interactions';
 
+// const discord = require("discord.js");
+
 class JsonResponse extends Response {
   constructor(body, init) {
     const jsonBody = JSON.stringify(body);
