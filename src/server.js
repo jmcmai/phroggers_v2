@@ -8,7 +8,12 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { AWW_COMMAND, INVITE_COMMAND, MRHERO_COMMAND, VALAGENT_COMMAND } from './commands.js';
+import {
+  AWW_COMMAND,
+  INVITE_COMMAND,
+  MRHERO_COMMAND,
+  VALAGENT_COMMAND,
+} from './commands.js';
 import { getRedditURL } from './reddit.js';
 import { getValorantAgent, getRivalsHero } from './gameAgents.js';
 import { InteractionResponseFlags } from 'discord-interactions';
@@ -73,18 +78,18 @@ router.post('/', async (request, env) => {
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: `Your random agent is: ${valAgent}.`
-          }
-        })
+            content: `Your random agent is: ${valAgent}.`,
+          },
+        });
       }
       case MRHERO_COMMAND.name.toLowerCase(): {
         const mrHero = await getRivalsHero();
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: `Your random agent is: ${mrHero}.`
-          }
-        })
+            content: `Your random agent is: ${mrHero}.`,
+          },
+        });
       }
       case INVITE_COMMAND.name.toLowerCase(): {
         const applicationId = env.DISCORD_APPLICATION_ID;

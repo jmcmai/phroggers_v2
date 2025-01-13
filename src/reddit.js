@@ -4,8 +4,8 @@
  * and return a random result.
  * @returns The url of an image or video which is cute.
  */
-const redditURLs = { 'cute': 'https://www.reddit.com/r/aww/hot.json' }
-export async function getRedditURL(urlType) {
+const redditURLs = { cute: 'https://www.reddit.com/r/aww/hot.json' };
+export async function getRedditURL(urlType="cute") {
   if (!(urlType in redditURLs)) {
     throw new Error("Reddit type doesn't exist!");
   }
@@ -43,3 +43,5 @@ export async function getRedditURL(urlType) {
   const randomPost = posts[randomIndex];
   return randomPost;
 }
+
+export const redditUrl = 'https://www.reddit.com/r/aww/hot.json';

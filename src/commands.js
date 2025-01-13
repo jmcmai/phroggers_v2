@@ -15,10 +15,10 @@ export const INVITE_COMMAND = {
 
 export const VALAGENT_COMMAND = {
   name: 'valagent',
-  description: 'Get random Valorant agent for your next roulette game.'
-}
+  description: 'Get random Valorant agent for your next roulette game.',
+};
 
 export const MRHERO_COMMAND = {
   name: 'mrhero',
-  description: 'Get random Marval Rivals hero for your next roulette game.'
-}
+  description: 'Get random Marval Rivals hero for your next roulette game.',
+};
