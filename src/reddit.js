@@ -5,7 +5,7 @@
  * @returns The url of an image or video which is cute.
  */
 const redditURLs = { cute: 'https://www.reddit.com/r/aww/hot.json' };
-export async function getRedditURL(urlType="cute") {
+export async function getRedditURL(urlType = 'cute') {
   if (!(urlType in redditURLs)) {
     throw new Error("Reddit type doesn't exist!");
   }
