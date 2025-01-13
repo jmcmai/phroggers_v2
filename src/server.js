@@ -11,8 +11,8 @@ import {
 import {
   AWW_COMMAND,
   INVITE_COMMAND,
-  MRHERO_COMMAND,
   VALAGENT_COMMAND,
+  RIVALS_COMMAND,
 } from './commands.js';
 import { getRedditURL } from './reddit.js';
 import { getValorantAgent, getRivalsHero } from './gameAgents.js';
@@ -82,7 +82,7 @@ router.post('/', async (request, env) => {
           },
         });
       }
-      case MRHERO_COMMAND.name.toLowerCase(): {
+      case RIVALS_COMMAND.name.toLowerCase(): {
         const mrHero = await getRivalsHero();
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,

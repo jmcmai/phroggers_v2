@@ -18,7 +18,7 @@ export const VALAGENT_COMMAND = {
   description: 'Get random Valorant agent for your next roulette game.',
 };
 
-export const MRHERO_COMMAND = {
-  name: 'mrhero',
+export const RIVALS_COMMAND = {
+  name: 'rivalshero',
   description: 'Get random Marval Rivals hero for your next roulette game.',
 };
