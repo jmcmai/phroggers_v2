@@ -4,10 +4,14 @@
  * and return a random result.
  * @returns The url of an image or video which is cute.
  */
-export async function getCuteUrl() {
-  const response = await fetch(redditUrl, {
+const redditURLs = { 'cute': 'https://www.reddit.com/r/aww/hot.json' }
+export async function getRedditURL(urlType) {
+  if (!(urlType in redditURLs)) {
+    throw new Error("Reddit type doesn't exist!");
+  }
+  const response = await fetch(redditURLs[urlType], {
     headers: {
-      'User-Agent': 'justinbeckwith:awwbot:v1.0.0 (by /u/justinblat)',
+      'User-Agent': 'jmcmai:phroggers:v1.0.0',
     },
   });
   if (!response.ok) {
@@ -39,5 +43,3 @@ export async function getCuteUrl() {
   const randomPost = posts[randomIndex];
   return randomPost;
 }
-
-export const redditUrl = 'https://www.reddit.com/r/aww/hot.json';

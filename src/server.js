@@ -8,11 +8,10 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
-import { getCuteUrl } from './reddit.js';
+import { AWW_COMMAND, INVITE_COMMAND, MRHERO_COMMAND, VALAGENT_COMMAND } from './commands.js';
+import { getRedditURL } from './reddit.js';
+import { getValorantAgent, getRivalsHero } from './gameAgents.js';
 import { InteractionResponseFlags } from 'discord-interactions';
-
-// const discord = require("discord.js");
 
 class JsonResponse extends Response {
   constructor(body, init) {
@@ -61,13 +60,31 @@ router.post('/', async (request, env) => {
     // Most user commands will come as `APPLICATION_COMMAND`.
     switch (interaction.data.name.toLowerCase()) {
       case AWW_COMMAND.name.toLowerCase(): {
-        const cuteUrl = await getCuteUrl();
+        const cuteUrl = await getRedditURL('cute');
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
             content: cuteUrl,
           },
         });
+      }
+      case VALAGENT_COMMAND.name.toLowerCase(): {
+        const valAgent = await getValorantAgent();
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: `Your random agent is: ${valAgent}.`
+          }
+        })
+      }
+      case MRHERO_COMMAND.name.toLowerCase(): {
+        const mrHero = await getRivalsHero();
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: `Your random agent is: ${mrHero}.`
+          }
+        })
       }
       case INVITE_COMMAND.name.toLowerCase(): {
         const applicationId = env.DISCORD_APPLICATION_ID;

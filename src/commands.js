@@ -12,3 +12,13 @@ export const INVITE_COMMAND = {
   name: 'invite',
   description: 'Get an invite link to add the bot to your server',
 };
+
+export const VALAGENT_COMMAND = {
+  name: 'valagent',
+  description: 'Get random Valorant agent for your next roulette game.'
+}
+
+export const MRHERO_COMMAND = {
+  name: 'mrhero',
+  description: 'Get random Marval Rivals hero for your next roulette game.'
+}
