@@ -1,8 +1,10 @@
 import {
   AWW_COMMAND,
   INVITE_COMMAND,
-  VALAGENT_COMMAND,
-  RIVALS_COMMAND,
+  RANDOMAGENT_COMMAND,
+  RANDOMNUM_COMMAND,
+  WHOAMI_COMMAND,
+  SAY_COMMAND,
 } from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
@@ -42,8 +44,10 @@ const response = await fetch(url, {
   body: JSON.stringify([
     AWW_COMMAND,
     INVITE_COMMAND,
-    VALAGENT_COMMAND,
-    RIVALS_COMMAND,
+    RANDOMAGENT_COMMAND,
+    RANDOMNUM_COMMAND,
+    WHOAMI_COMMAND,
+    SAY_COMMAND,
   ]),
 });
 

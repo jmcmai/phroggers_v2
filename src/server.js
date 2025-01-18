@@ -11,8 +11,10 @@ import {
 import {
   AWW_COMMAND,
   INVITE_COMMAND,
-  VALAGENT_COMMAND,
-  RIVALS_COMMAND,
+  WHOAMI_COMMAND,
+  SAY_COMMAND,
+  RANDOMAGENT_COMMAND,
+  RANDOMNUM_COMMAND,
 } from './commands.js';
 import { getRedditURL } from './reddit.js';
 import { getValorantAgent, getRivalsHero } from './gameAgents.js';
@@ -73,32 +75,93 @@ router.post('/', async (request, env) => {
           },
         });
       }
-      case VALAGENT_COMMAND.name.toLowerCase(): {
-        const valAgent = await getValorantAgent();
-        return new JsonResponse({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: `Your random agent is: ${valAgent}.`,
-          },
-        });
+      case RANDOMAGENT_COMMAND.name.toLowerCase(): {
+        switch (interaction.data.options[0].value) {
+          case 'valorant': {
+            const valAgent = await getValorantAgent();
+            return new JsonResponse({
+              type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                content: `Your random Valorant agent is: ${valAgent}.`,
+              },
+            });
+          }
+
+          case 'marvalrivals': {
+            const mrHero = await getRivalsHero();
+            return new JsonResponse({
+              type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                content: `Your random Marval Rivals hero is: ${mrHero}.`,
+              },
+            });
+          }
+
+          default: {
+            return new JsonResponse({
+              type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                content: `uh oh stinky...`,
+              },
+            });
+          }
+        }
       }
-      case RIVALS_COMMAND.name.toLowerCase(): {
-        const mrHero = await getRivalsHero();
+      case RANDOMNUM_COMMAND.name.toLowerCase(): {
+        let upperObj;
+        let lowerObj;
+
+        if ('options' in interaction.data) {
+          upperObj = interaction.data.options.find(
+            (option) => option.name === 'upper',
+          );
+          lowerObj = interaction.data.options.find(
+            (option) => option.name === 'lower',
+          );
+        }
+
+        const max = upperObj ? upperObj.value : 6;
+        const min = lowerObj ? lowerObj.value : 1;
+
+        const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: `Your random agent is: ${mrHero}.`,
+            content: `Your random number is ${randNum}.`,
           },
         });
       }
       case INVITE_COMMAND.name.toLowerCase(): {
         const applicationId = env.DISCORD_APPLICATION_ID;
-        const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${applicationId}&scope=applications.commands`;
+        const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${applicationId}&scope=applications.commands+bot`;
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
             content: INVITE_URL,
             flags: InteractionResponseFlags.EPHEMERAL,
+          },
+        });
+      }
+      case WHOAMI_COMMAND.name.toLowerCase(): {
+        const dateJoined = new Date(interaction.member.joined_at);
+        const dateString = dateJoined.toLocaleString();
+        const content = interaction.member.user.global_name
+          ? `You are ${interaction.member.user.username} (${interaction.member.user.global_name}), who joined this server on ${dateString}`
+          : `You are ${interaction.member.user.username}, who joined this server on ${dateString}`;
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: content,
+          },
+        });
+      }
+      case SAY_COMMAND.name.toLowerCase(): {
+        const message = interaction.data.options[0].value;
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: message,
           },
         });
       }
